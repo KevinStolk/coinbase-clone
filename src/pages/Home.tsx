@@ -1,8 +1,16 @@
 import React from 'react'
+import Coins from '../components/Coins'
 
-const Home = () => {
+interface IHomeProps {
+        coins: any[]
+}
+
+const Home: React.FC<IHomeProps> = ({coins}) => {
   return (
-    <div>Home</div>
+    <div>
+        <Coins coins={coins}/>
+
+    </div>
   )
 }
 
