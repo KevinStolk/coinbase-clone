@@ -1,9 +1,9 @@
-import React, {useState, useEffect, createContext} from 'react'
+import React, { useState, useEffect, createContext } from 'react'
 
 const getUserTheme = () => {
-    if(typeof window !== 'undefined' && window.localStorage) {
+    if (typeof window !== 'undefined' && window.localStorage) {
         const userStoredTheme = window.localStorage.getItem('theme')
-        if(typeof userStoredTheme === 'string') {
+        if (typeof userStoredTheme === 'string') {
             return userStoredTheme;
         }
         const userMedia = window.matchMedia('(prefers-color-scheme: dark)')
@@ -14,12 +14,25 @@ const getUserTheme = () => {
     return 'light'
 }
 
-export const ThemeContext = createContext()
+interface ThemeContextProps {
+    theme: string;
+    setTheme: (theme: string) => void;
+}
 
-export const ThemeProvider = ({userTheme, children}) => {
+export const ThemeContext = createContext<ThemeContextProps>({
+    theme: '',
+    setTheme: (theme: string) => { },
+});
+
+interface ThemeProviderProps {
+    userTheme?: string;
+    children: React.ReactNode;
+}
+
+export const ThemeProvider: React.FC<ThemeProviderProps> = ({ userTheme, children }) => {
     const [theme, setTheme] = useState(getUserTheme)
 
-    const setDefaultTheme = (theme) => {
+    const setDefaultTheme = (theme: string) => {
         const root = window.document.documentElement;
         const isDark = theme === 'dark'
 
@@ -38,7 +51,7 @@ export const ThemeProvider = ({userTheme, children}) => {
     }, [theme])
 
     return (
-        <ThemeContext.Provider value={{theme, setTheme}}>
+        <ThemeContext.Provider value={{ theme, setTheme }}>
             {children}
         </ThemeContext.Provider>
     )

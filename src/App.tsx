@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React from 'react'
+import { Navbar } from './components/Navbar'
+import { ThemeProvider } from './context/ThemeContext'
 
 function App() {
     return (
-        <div className="App">
-        </div>
+        <ThemeProvider>
+            <Navbar/>
+        </ThemeProvider>
     )
 }
 
