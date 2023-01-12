@@ -27,7 +27,7 @@ const Coins: React.FC<ICoinsProps> = ({ coins }) => {
     return (
         <div className='card my-4'>
             <div className='flex flex-col md:flex-row justify-between pt-4 pb-6 text-center md:text-right'>
-                <h1 className='text-accent text-2xl font-bold my-2'>Crypto</h1>
+                <h1 className='text-accent text-2xl font-bold my-2 px-2'>Crypto</h1>
                 <form>
                     <input className='w-full bg-primary border border-input px-4 py-2 shadow-xl' onChange={(e) => setQuery(e.target.value)} type='text' placeholder='Search for a coin...' />
                 </form>
