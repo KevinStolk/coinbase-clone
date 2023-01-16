@@ -1,10 +1,15 @@
 import React from 'react'
+import { useNavigate } from 'react-router-dom'
 import SavedCoin from '../components/SavedCoin'
 import { UserAuth } from '../context/AuthContext'
 
 const Account = () => {
     const { user } = UserAuth()
+    const navigate = useNavigate()
 
+    if (user == undefined || null) {
+        navigate('/signin')
+    }
     return (
         <div className="max-w-[1140px] mx-10">
             <div className="flex justify-between items-center my-5 py-8">

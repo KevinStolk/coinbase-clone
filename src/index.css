@@ -7,9 +7,9 @@
     --color-bg-secondary: #ffffff;
     --color-text-primary: #ffffff;
     --color-text-secondary: #e2e8f0;
-    --color-text-accent: #0052FF;
+    --color-text-accent: #0052ff;
     --color-bg-input: #4a5361;
-    --color-bg-button: #0052FF;
+    --color-bg-button: #0052ff;
 }
 
 .light {
@@ -17,31 +17,32 @@
     --color-bg-secondary: #edf2f7;
     --color-text-primary: #000000;
     --color-text-secondary: #4a5568;
-    --color-text-accent: #0052FF;
+    --color-text-accent: #0052ff;
     --color-bg-input: #edf2f7;
-    --color-bg-button: #0052FF;
+    --color-bg-button: #0052ff;
 }
 
 :root {
-  @apply bg-primary text-primary;
-  font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
-  font-size: 16px;
-  line-height: 24px;
-  font-weight: 400;
-  font-synthesis: none;
-  text-rendering: optimizeLegibility;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  -webkit-text-size-adjust: 100%;
+    @apply bg-primary text-primary;
+    font-family: Inter, Avenir, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 400;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
 }
 
 * {
     margin: 0;
     padding: 0;
-    box-sizing: border-box;;
+    box-sizing: border-box;
 }
 
-body, html {
+body,
+html {
     margin: 0;
     padding: 0;
     width: 100%;
@@ -49,5 +50,5 @@ body, html {
 }
 
 .card {
-     @apply border border-secondary rounded-2xl shadow-xl bg-primary px-2 max-w-[1140px] w-full mx-auto
+    @apply rounded-2xl shadow-2xl bg-primary px-2 max-w-[1140px] w-full mx-auto;
 }

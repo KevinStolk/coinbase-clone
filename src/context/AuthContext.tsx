@@ -8,7 +8,9 @@ import {
 } from 'firebase/auth'
 import { doc, setDoc } from 'firebase/firestore'
 
-interface User {}
+interface User {
+    email: string
+}
 
 interface AuthContext {
     signUp: (email: string, password: string) => void
@@ -27,7 +29,7 @@ const UserContext = createContext<AuthContext>({
 export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
     children,
 }) => {
-    const [user, setUser] = useState<User | null>()
+    const [user, setUser] = useState<User | null>(null)
 
     const signUp = (email: string, password: string) => {
         createUserWithEmailAndPassword(auth, email, password)
@@ -46,7 +48,11 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
 
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (currentUser) => {
-            setUser(currentUser)
+            if (currentUser) {
+                setUser(currentUser as User | null)
+            } else {
+                setUser(null)
+            }
         })
         return () => {
             unsubscribe()

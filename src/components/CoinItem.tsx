@@ -1,28 +1,57 @@
-import React from "react";
-import { AiOutlineStar } from "react-icons/ai";
-import { Sparklines, SparklinesLine } from "react-sparklines-typescript";
-import { Link } from "react-router-dom";
+import React, { useState } from 'react'
+import { AiFillStar, AiOutlineStar } from 'react-icons/ai'
+import { Sparklines, SparklinesLine } from 'react-sparklines-typescript'
+import { Link } from 'react-router-dom'
+import { UserAuth } from '../context/AuthContext'
+import { db } from '../db/firebase'
+import { arrayUnion, doc, updateDoc } from 'firebase/firestore'
 
 interface ICoins {
-    id: string;
-    name: string;
-    symbol: string;
-    image: string;
-    current_price: number;
-    price_change_percentage_24h: number;
-    total_volume: number;
-    market_cap: number;
-    market_cap_rank: number;
+    id: string
+    name: string
+    symbol: string
+    image: string
+    current_price: number
+    price_change_percentage_24h: number
+    total_volume: number
+    market_cap: number
+    market_cap_rank: number
     sparkline_in_7d: {
-        price: number[];
-    };
+        price: number[]
+    }
 }
 
 const CoinItem: React.FC<{ coin: ICoins }> = ({ coin }) => {
+    const [savedCoin, setSavedCoin] = useState(false)
+    const { user } = UserAuth()
+
+    const coinPath = doc(db, 'users', `${user?.email}`)
+
+    const saveCoin = async () => {
+        if (user?.email) {
+            setSavedCoin(true)
+            await updateDoc(coinPath, {
+                watchList: arrayUnion({
+                    id: coin.id,
+                    name: coin.name,
+                    image: coin.image,
+                    rank: coin.market_cap_rank,
+                    symbol: coin.symbol,
+                }),
+            })
+        } else {
+            alert('Please sign in to save a coin to your list')
+        }
+    }
+
     return (
         <tr className="h-[80px] border-b overflow-hidden" key={coin.id}>
-            <td>
-                <AiOutlineStar />
+            <td onClick={saveCoin}>
+                {savedCoin ? (
+                    <AiFillStar className="cursor-pointer" />
+                ) : (
+                    <AiOutlineStar className="cursor-pointer" />
+                )}
             </td>
             <td>{coin.market_cap_rank}</td>
             <td>
@@ -62,7 +91,7 @@ const CoinItem: React.FC<{ coin: ICoins }> = ({ coin }) => {
                 </Sparklines>
             </td>
         </tr>
-    );
-};
+    )
+}
 
-export default CoinItem;
+export default CoinItem

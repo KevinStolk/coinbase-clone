@@ -1,13 +1,46 @@
-import React, { useState } from 'react'
-import { AiOutlineClose } from 'react-icons/ai'
+import React, { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
+import { doc, onSnapshot, updateDoc } from 'firebase/firestore'
+import { db } from '../db/firebase'
+import { UserAuth } from '../context/AuthContext'
+import { FaRegTrashAlt } from 'react-icons/fa'
+
+interface ISavedCoin {
+    id: string
+    name: string
+    rank: number
+    symbol: string
+    image: string
+}
 
 const SavedCoin = () => {
-    const [coins, setCoins] = useState([])
+    const [coins, setCoins] = useState<ISavedCoin[]>([])
+    const { user } = UserAuth()
+
+    useEffect(() => {
+        onSnapshot(doc(db, 'users', `${user?.email}`), (doc) => {
+            setCoins(doc.data()?.watchList)
+        })
+    }, [user?.email])
+
+    const coinPath = doc(db, 'users', `${user?.email}`)
+
+    const deleteCoin = async (id: string): Promise<void> => {
+        try {
+            const res: ISavedCoin[] = coins.filter(
+                (item: ISavedCoin) => item.id !== id
+            )
+            await updateDoc(coinPath, {
+                watchlist: res,
+            })
+        } catch (err) {
+            console.error(err)
+        }
+    }
 
     return (
         <div>
-            {coins.length === 0 ? (
+            {coins?.length === 0 ? (
                 <p>
                     You don't have any coins saved. Please save a coin to add it
                     to your coin list.{' '}
@@ -23,10 +56,10 @@ const SavedCoin = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {coins.map((coin) => (
+                        {coins?.map((coin) => (
                             <tr
                                 key={coin.id}
-                                className="h-[60px] overflow-hidden"
+                                className="h-[60px] mt-2 overflow-hidden"
                             >
                                 <td>{coin?.rank}</td>
                                 <td>
@@ -49,7 +82,10 @@ const SavedCoin = () => {
                                     </Link>
                                 </td>
                                 <td className="pl-8">
-                                    <AiOutlineClose className="cursor-pointer" />
+                                    <FaRegTrashAlt
+                                        onClick={() => deleteCoin(coin.id)}
+                                        className="cursor-pointer hover:text-red-500 transition"
+                                    />
                                 </td>
                             </tr>
                         ))}

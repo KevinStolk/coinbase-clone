@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { AiFillLock, AiOutlineMail } from 'react-icons/ai'
 import { Link, useNavigate } from 'react-router-dom'
-import { UserAuth } from '../../context/AuthContext'
+import { signIn, UserAuth } from '../../context/AuthContext'
 
 const SignIn = () => {
     const { signIn } = UserAuth()
@@ -15,6 +15,7 @@ const SignIn = () => {
     const handleSubmit = async (e) => {
         e.preventDefault()
         setError('')
+
         try {
             await signIn(email, password)
             navigate('/')

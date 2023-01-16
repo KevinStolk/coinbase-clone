@@ -14,6 +14,7 @@ export const Navbar = () => {
         try {
             await logout()
             navigate('/')
+            setNav(!nav)
         } catch (err) {
             console.error(err)
         }
@@ -76,16 +77,16 @@ export const Navbar = () => {
             <div
                 className={
                     nav
-                        ? 'md:hidden fixed left-0 top-20 flex flex-col items-center justify-between w-full h-[90%] bg-primary ease-in duration-300 z-10'
-                        : 'fixed top-[-100%] h-full flex flex-col items-center justify-between'
+                        ? 'md:hidden fixed left-0 top-16 flex flex-col items-center justify-between w-full h-[90%] bg-primary ease-in duration-300 z-10'
+                        : 'fixed top-[-100%] h-[90%] flex flex-col items-center justify-between'
                 }
             >
                 <ul className="w-full p-4">
-                    <li className="py-6">
+                    <li onClick={handleNav} className="py-6">
                         <Link to="/">Home</Link>
                     </li>
                     {user ? (
-                        <li className="py-6">
+                        <li onClick={handleNav} className="py-6">
                             <Link to="/account">Account</Link>
                         </li>
                     ) : null}
@@ -96,11 +97,17 @@ export const Navbar = () => {
                 {!user ? (
                     <div className="flex flex-col w-full p-4">
                         <Link to="/signup">
-                            <button className="w-full m-y2 p-3 bg-button text-btnText rounded-md shadow-xl">
+                            <button
+                                onClick={handleNav}
+                                className="w-full m-y2 p-3 bg-button text-btnText rounded-md shadow-xl"
+                            >
                                 Get started
                             </button>
                             <Link to="/signin">
-                                <button className="w-full my-2 p-3 border-blue-500 text-accent dark:text-white border-2 border-secondary rounded-md shadow-xl hover:border-none">
+                                <button
+                                    onClick={handleNav}
+                                    className="w-full my-2 p-3 border-blue-500 text-accent dark:text-white border-2 border-secondary rounded-md shadow-xl hover:border-none"
+                                >
                                     Sign In
                                 </button>
                             </Link>
