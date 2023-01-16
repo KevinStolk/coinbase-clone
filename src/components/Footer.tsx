@@ -5,7 +5,7 @@ import { FaFacebookF, FaGithub, FaTiktok, FaTwitter } from 'react-icons/fa'
 
 const Footer = () => {
     return (
-        <div className="card mt-8 pt-8 text-primary">
+        <div className="border border-secondary shadow-xl bg-primary px-2 w-full mt-8 pt-8 text-primary">
             <div className="grid md:grid-cols-2">
                 <div className="flex justify-evenly w-full md:max-w-[300px] uppercase">
                     <div>

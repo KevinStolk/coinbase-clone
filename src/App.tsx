@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import { Navbar } from './components/Navbar'
 import { ThemeProvider } from './context/ThemeContext'
+import { AuthContextProvider } from './context/AuthContext'
 import Account from './pages/Account'
 import SignIn from './pages/auth/SignIn'
 import SignUp from './pages/auth/SignUp'
@@ -24,17 +25,19 @@ function App() {
 
     return (
         <ThemeProvider>
-            <Navbar />
-            <Routes>
-                <Route path="/" element={<Home {...{ coins }} />} />
-                <Route path="/signin" element={<SignIn />} />
-                <Route path="/signup" element={<SignUp />} />
-                <Route path="/account" element={<Account />} />
-                <Route path="/coin/:id" element={<CoinPage />}>
-                    <Route path=":id" />
-                </Route>
-            </Routes>
-            <Footer />
+            <AuthContextProvider>
+                <Navbar />
+                <Routes>
+                    <Route path="/" element={<Home {...{ coins }} />} />
+                    <Route path="/signin" element={<SignIn />} />
+                    <Route path="/signup" element={<SignUp />} />
+                    <Route path="/account" element={<Account />} />
+                    <Route path="/coin/:id" element={<CoinPage />}>
+                        <Route path=":id" />
+                    </Route>
+                </Routes>
+                <Footer />
+            </AuthContextProvider>
         </ThemeProvider>
     )
 }
