@@ -43,6 +43,7 @@ interface ICoinPage {
     }
     market_cap_rank: number
     hashing_algorithm: string
+    tickers: [{}]
     liquidity_score: number
 }
 
