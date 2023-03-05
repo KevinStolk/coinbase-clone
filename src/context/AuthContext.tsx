@@ -48,12 +48,12 @@ export const AuthContextProvider: React.FC<{ children: React.ReactNode }> = ({
         }
     }
 
-    const signIn = (email: string, password: string) => {
-        return signInWithEmailAndPassword(auth, email, password)
+    const signIn = async (email: string, password: string) => {
+        return await signInWithEmailAndPassword(auth, email, password)
     }
 
-    const logout = () => {
-        return signOut(auth)
+    const logout = async () => {
+        return await signOut(auth)
     }
 
     useEffect(() => {

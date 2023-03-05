@@ -31,7 +31,7 @@ const SavedCoin = () => {
                 (item: ISavedCoin) => item.id !== id
             )
             await updateDoc(coinPath, {
-                watchlist: res,
+                watchList: res,
             })
         } catch (err) {
             console.error(err)
