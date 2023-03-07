@@ -16,7 +16,7 @@
 ## About
 
 > A crypto application based on the look from Coinbase with data regarding different types of coins, trending Coinbase specific data about a coin and the possibility to store coins to a personal portfolio to track them.
-> The application is made with ReactJS, Firebase, Typescript, Axios and uses the CoinGecko API to retrieve coin data.
+> The application is made with ReactJS, TailwindCSS, Firebase, Typescript, Axios and uses the CoinGecko API to retrieve coin data.
 
 ## Installation/Instructions
 
