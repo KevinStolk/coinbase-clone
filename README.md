@@ -62,5 +62,7 @@ VITE_REACT_APP_APP_ID=(your app id here)
 ```bash
 npm run dev
 
+# or
+
 pnpm run dev
 ```
